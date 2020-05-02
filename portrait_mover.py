@@ -47,7 +47,7 @@ def do_move(base_dir, portrait_dir):
         portrait_dir.rmdir()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     for path_str in sys.argv[1:]:
         check_dir(Path(path_str))
