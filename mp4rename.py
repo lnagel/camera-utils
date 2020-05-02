@@ -14,7 +14,7 @@ def do_rename(filename):
     tagged_date = get_tagged_date(filename=filename)
     if tagged_date:
         extension = re.search("\.([a-zA-Z0-9]+)$", filename).groups()[0].lower()
-        tagged_date_local = tagged_date.astimezone(tz=pytz.timezone("Europe/Brussels"))
+        tagged_date_local = tagged_date.astimezone(tz=pytz.timezone("Europe/Tallinn"))
         new_filename = format_filename(timestamp=tagged_date_local, extension=extension)
         new_abs_filename = os.path.abspath(os.path.join(filename, os.pardir, new_filename))
         if filename != new_filename:
