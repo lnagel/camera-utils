@@ -1,10 +1,13 @@
 import datetime
+import logging
 
 import pytz as pytz
 import os
 import re
 import sys
 from pymediainfo import MediaInfo
+
+logger = logging.getLogger("mp4rename")
 
 
 def do_rename(filename):
@@ -15,10 +18,10 @@ def do_rename(filename):
         new_filename = format_filename(timestamp=tagged_date_local, extension=extension)
         new_abs_filename = os.path.abspath(os.path.join(filename, os.pardir, new_filename))
         if filename != new_filename:
-            print(filename, '->', new_filename)
+            logger.info(filename, '->', new_filename)
             os.rename(filename, new_abs_filename)
         else:
-            print(filename, ' (not changed)')
+            logger.info(filename, ' (not changed)')
     else:
         raise RuntimeError('Could not determine tagged date for {}'.format(filename))
 
