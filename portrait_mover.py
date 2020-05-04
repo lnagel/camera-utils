@@ -10,7 +10,7 @@ logger = logging.getLogger("portrait_mover")
 
 def check_dir(path):
     if path.is_dir():
-        if re.match("^IMG_[0-9]{8}_[0-9]{6}$", path.name):
+        if re.match("^IMG_[0-9]{8}_[0-9]{6}(|_[0-9])$", path.name):
             do_move(path.parent, path)
         else:
             # scan members
