@@ -18,6 +18,14 @@ def check_dir(path):
                 check_dir(item)
 
 
+def get_next_name(name):
+    seq_match = re.match("^(IMG_[0-9]{8}_[0-9]{6})_([0-9]+)$", name)
+    if seq_match:
+        return f"{seq_match[1]}_{int(seq_match[2])+1}"
+    else:
+        return f"{name}_1"
+
+
 def do_move(base_dir, portrait_dir):
     # collect files to move
     candidates = []
@@ -31,7 +39,12 @@ def do_move(base_dir, portrait_dir):
         else:
             others.append(item)
 
-    target = base_dir / f"{portrait_dir.name}.jpg"
+    base_name = portrait_dir.name
+    target = base_dir / f"{base_name}.jpg"
+
+    while target.exists():
+        base_name = get_next_name(name=base_name)
+        target = base_dir / f"{base_name}.jpg"
 
     if not target.exists():
         if len(candidates) == 1 and len(others) == 0:
